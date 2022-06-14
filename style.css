@@ -1,0 +1,64 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    background-color: #EEF9BF;
+}
+
+.corpo-do-jogo {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.titulo {
+    margin-top: 45px;
+    color: #75B79E;
+    font-family: 'Roboto';
+    font-size: 56px;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    text-align: center;
+}
+
+.caixa-jogo {
+    width: 80%;
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+    margin-top: 47px;
+}
+
+.carta-jogo {
+    width: 117px;
+    height: 146px;
+    background-color: #A7E9AF;
+    border: 1px solid #99CEA8;
+    border-radius: 5px;
+    margin-bottom: 34px;
+    margin-left: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+img {
+    width: 80%;
+}
+
+@media(max-width:414px) {
+    .titulo {
+        font-size: 36px;
+        width: 80%;
+    }
+    .caixa-jogo {
+        width: 50%;
+    }
+}
