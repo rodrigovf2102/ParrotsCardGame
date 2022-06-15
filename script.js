@@ -4,8 +4,12 @@ let contador = 0;
 
 while (!qntdeCarta) {
     qntdeCarta = prompt("Digite o número de cartas em jogo: (4 a 14)");
-    if (qntdeCarta % 2 || qntdeCarta < 4 || qntdeCarta > 14) {
+    if (qntdeCarta % 2 || qntdeCarta < 4 || qntdeCarta > 14 ) {
         qntdeCarta = 0;
+    }
+    if(isNaN(Number(qntdeCarta)))
+    {
+        qntdeCarta=0;
     }
 }
 
@@ -18,9 +22,9 @@ cartasJogo.sort(comparador);
 
 for (let i = 0; i < qntdeCarta; i++) {
     caixaJogo.innerHTML = caixaJogo.innerHTML +
-        `<div class='carta-jogo' onclick="virarCarta(this)">
-        <img class="frente aparecer" src='images/front.png'>
-        <img class="verso esconder" src='images/${cartasJogo[i]}.gif'>
+        `<div class='card' onclick="virarCarta(this)">
+        <img class="back-face aparecer" src='images/front.png'>
+        <img class="front-face esconder" src='images/${cartasJogo[i]}.gif'>
     </div>`;
 }
 
@@ -29,34 +33,33 @@ function comparador() {
 }
 
 function virarCarta(carta) {
-    if (carta.querySelector(".verso.aparecerfinal") == null) {
+    if (carta.querySelector(".front-face.aparecerfinal") == null) {
         contador++;
 
         carta.onclick = "";
 
-        carta.querySelector(".frente").classList.remove("aparecer");
-        carta.querySelector(".frente").classList.add("esconder");
-        carta.querySelector(".verso").classList.remove("esconder");
-        carta.querySelector(".verso").classList.add("aparecer");
+        carta.querySelector(".back-face").classList.remove("aparecer");
+        carta.querySelector(".back-face").classList.add("esconder");
+        carta.querySelector(".front-face").classList.remove("esconder");
+        carta.querySelector(".front-face").classList.add("aparecer");
         console.log(contador);
 
         if (contador % 2 === 0) {
-            let cartasNaoClicaveis = document.querySelectorAll(".carta-jogo")
+            let cartasNaoClicaveis = document.querySelectorAll(".card")
             for (let i = 0; i < cartasNaoClicaveis.length; i++) {
-                cartasNaoClicaveis[i].onclick = nada();
+                cartasNaoClicaveis[i].onclick ="";
             }
             setTimeout(verificarCartasIguais, 1000);
         }
     }
 }
 
-
 function verificarCartasIguais() {
-    const cartasViradasVerso = document.querySelectorAll(".verso.aparecer");
-    const cartasViradasFrente = document.querySelectorAll(".frente.esconder");
+    const cartasViradasVerso = document.querySelectorAll(".front-face.aparecer");
+    const cartasViradasFrente = document.querySelectorAll(".back-face.esconder");
 
     if (cartasViradasVerso[0].getAttribute("src").toString() !== cartasViradasVerso[1].getAttribute("src").toString()) {
-        let CartasClicaveis = document.querySelectorAll(".carta-jogo");
+        let CartasClicaveis = document.querySelectorAll(".card");
         for (let i = 0; i < 2; i++) {
             cartasViradasVerso[i].classList.remove("aparecer");
             cartasViradasVerso[i].classList.add("esconder");
@@ -74,19 +77,14 @@ function verificarCartasIguais() {
             cartasViradasFrente[i].classList.remove("esconder");
             cartasViradasFrente[i].classList.add("esconderfinal");
         }
-        let CartasClicaveis = document.querySelectorAll(".carta-jogo")
+        let CartasClicaveis = document.querySelectorAll(".card")
         for (let i = 0; i < CartasClicaveis.length; i++) {
             CartasClicaveis[i].onclick = function onclick(event) { virarCarta(this) };
         }
     }
-
     let acertos = document.querySelectorAll(".aparecerfinal").length;
     if(acertos == qntdeCarta)
     {
         alert("Você ganhou em: "+contador+" jogadas!");
     }
-
-}
-function nada() {
-
 }
