@@ -51,10 +51,22 @@ body {
 
 img {
     width: 80%;
+    display: none;
 }
 
 .escondido{
     display: none;
+}
+
+.aparecer{
+    display: initial;
+}
+.escondidofinal{
+    display: none;
+}
+
+.aparecerfinal{
+    display: initial;
 }
 
 @media(max-width:414px) {
