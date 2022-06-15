@@ -53,6 +53,10 @@ img {
     width: 80%;
 }
 
+.escondido{
+    display: none;
+}
+
 @media(max-width:414px) {
     .titulo {
         font-size: 36px;
