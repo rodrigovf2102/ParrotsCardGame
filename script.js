@@ -1,31 +1,33 @@
 let qntdeCarta = 0;
 let cartasJogo = [];
 let contador = 0;
+const caixaJogo = document.querySelector(".caixa-jogo");
 
-while (!qntdeCarta) {
-    qntdeCarta = prompt("Digite o número de cartas em jogo: (4 a 14)");
-    if (qntdeCarta % 2 || qntdeCarta < 4 || qntdeCarta > 14 ) {
-        qntdeCarta = 0;
+gerarCartas();
+
+function gerarCartas() {
+    while (!qntdeCarta) {
+        qntdeCarta = prompt("Digite o número de cartas em jogo: (4 a 14)");
+        if (qntdeCarta % 2 || qntdeCarta < 4 || qntdeCarta > 14) {
+            qntdeCarta = 0;
+        }
+        if (isNaN(Number(qntdeCarta))) {
+            qntdeCarta = 0;
+        }
     }
-    if(isNaN(Number(qntdeCarta)))
-    {
-        qntdeCarta=0;
+    for (let i = 1; i <= qntdeCarta; i++) {
+        tipoDeCarta = Math.ceil(i / 2);
+        cartasJogo[i - 1] = tipoDeCarta;
     }
-}
+    cartasJogo.sort(comparador);
 
-const caixaJogo = document.querySelector(".caixa-jogo")
-for (let i = 1; i <= qntdeCarta; i++) {
-    tipoDeCarta = Math.ceil(i / 2);
-    cartasJogo[i - 1] = tipoDeCarta;
-}
-cartasJogo.sort(comparador);
-
-for (let i = 0; i < qntdeCarta; i++) {
-    caixaJogo.innerHTML = caixaJogo.innerHTML +
-        `<div class='card' onclick="virarCarta(this)">
+    for (let i = 0; i < qntdeCarta; i++) {
+        caixaJogo.innerHTML = caixaJogo.innerHTML +
+            `<div class='card' onclick="virarCarta(this)">
         <img class="back-face aparecer" src='images/front.png'>
         <img class="front-face esconder" src='images/${cartasJogo[i]}.gif'>
     </div>`;
+    }
 }
 
 function comparador() {
@@ -47,7 +49,7 @@ function virarCarta(carta) {
         if (contador % 2 === 0) {
             let cartasNaoClicaveis = document.querySelectorAll(".card")
             for (let i = 0; i < cartasNaoClicaveis.length; i++) {
-                cartasNaoClicaveis[i].onclick ="";
+                cartasNaoClicaveis[i].onclick = "";
             }
             setTimeout(verificarCartasIguais, 1000);
         }
@@ -83,8 +85,23 @@ function verificarCartasIguais() {
         }
     }
     let acertos = document.querySelectorAll(".aparecerfinal").length;
-    if(acertos == qntdeCarta)
-    {
-        alert("Você ganhou em: "+contador+" jogadas!");
+    if (acertos == qntdeCarta) {
+        alert("Você ganhou em: " + contador + " jogadas!");
+
+        let resposta = prompt("Jogar denovo?");
+        if (resposta === "Sim" || resposta === "sim") {
+            let cartas = document.querySelectorAll(".card");
+            let cartasVerso = document.querySelectorAll(".aparecerfinal");
+            let cartasFrente = document.querySelectorAll(".esconderfinal");
+            for (let i = 0; i < cartas.length; i++) {
+                cartas[i].classList.remove("card");
+                cartasVerso[i].classList.remove("aparecerfinal");
+                cartasFrente[i].classList.remove("esconderfinal");  
+            }
+            contador = 0;
+            qntdeCarta = 0;
+            cartasJogo = [];
+            gerarCartas();
+        }
     }
 }
