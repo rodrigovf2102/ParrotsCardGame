@@ -79,6 +79,13 @@ function verificarCartasIguais() {
             CartasClicaveis[i].onclick = function onclick(event) { virarCarta(this) };
         }
     }
+
+    let acertos = document.querySelectorAll(".aparecerfinal").length;
+    if(acertos == qntdeCarta)
+    {
+        alert("Você ganhou em: "+contador+" jogadas!");
+    }
+
 }
 function nada() {
 
