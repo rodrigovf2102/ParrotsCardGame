@@ -1,6 +1,7 @@
 let qntdeCarta = 0;
 let cartasJogo = [];
 let contador = 0;
+
 while (!qntdeCarta) {
     qntdeCarta = prompt("Digite o número de cartas em jogo: (4 a 14)");
     if (qntdeCarta % 2 || qntdeCarta < 4 || qntdeCarta > 14) {
@@ -28,34 +29,57 @@ function comparador() {
 }
 
 function virarCarta(carta) {
-    contador++;
-    carta.querySelector(".frente").classList.remove("aparecer");
-    carta.querySelector(".frente").classList.add("esconder");
-    carta.querySelector(".verso").classList.remove("esconder");
-    carta.querySelector(".verso").classList.add("aparecer");
+    if (carta.querySelector(".verso.aparecerfinal") == null) {
+        contador++;
 
+        carta.onclick = "";
+
+        carta.querySelector(".frente").classList.remove("aparecer");
+        carta.querySelector(".frente").classList.add("esconder");
+        carta.querySelector(".verso").classList.remove("esconder");
+        carta.querySelector(".verso").classList.add("aparecer");
+        console.log(contador);
+
+        if (contador % 2 === 0) {
+            let cartasNaoClicaveis = document.querySelectorAll(".carta-jogo")
+            for (let i = 0; i < cartasNaoClicaveis.length; i++) {
+                cartasNaoClicaveis[i].onclick = nada();
+            }
+            setTimeout(verificarCartasIguais, 1000);
+        }
+    }
+}
+
+
+function verificarCartasIguais() {
     const cartasViradasVerso = document.querySelectorAll(".verso.aparecer");
     const cartasViradasFrente = document.querySelectorAll(".frente.esconder");
 
-    if (cartasViradasVerso.length > 1) {
-        if (cartasViradasVerso[0].getAttribute("src").toString() !== cartasViradasVerso[1].getAttribute("src").toString()) {
-            setTimeout(nada(),1000);
-            console.log("diferente");
-            for (let i = 0; i < 2; i++) {
-                cartasViradasVerso[i].classList.remove("aparecer");
-                cartasViradasVerso[i].classList.add("esconder");
-                cartasViradasFrente[i].classList.remove("esconder");
-                cartasViradasFrente[i].classList.add("aparecer");
-            }
+    if (cartasViradasVerso[0].getAttribute("src").toString() !== cartasViradasVerso[1].getAttribute("src").toString()) {
+        let CartasClicaveis = document.querySelectorAll(".carta-jogo");
+        for (let i = 0; i < 2; i++) {
+            cartasViradasVerso[i].classList.remove("aparecer");
+            cartasViradasVerso[i].classList.add("esconder");
+            cartasViradasFrente[i].classList.remove("esconder");
+            cartasViradasFrente[i].classList.add("aparecer");
         }
-        else {
-            for (let i = 0; i < 2; i++) {
-                cartasViradasVerso[i].classList.remove("aparecer");
-                cartasViradasVerso[i].classList.add("aparecerfinal");
-                cartasViradasFrente[i].classList.remove("esconder");
-                cartasViradasFrente[i].classList.add("esconderfinal");
-            }
+        for (let i = 0; i < CartasClicaveis.length; i++) {
+            CartasClicaveis[i].onclick = function onclick(event) { virarCarta(this) };
         }
     }
-    function nada(){}
+    else {
+        for (let i = 0; i < 2; i++) {
+            cartasViradasVerso[i].classList.remove("aparecer");
+            cartasViradasVerso[i].classList.add("aparecerfinal");
+            cartasViradasFrente[i].classList.remove("esconder");
+            cartasViradasFrente[i].classList.add("esconderfinal");
+        }
+        let CartasClicaveis = document.querySelectorAll(".carta-jogo")
+        for (let i = 0; i < CartasClicaveis.length; i++) {
+            CartasClicaveis[i].onclick = function onclick(event) { virarCarta(this) };
+        }
+    }
+}
+function nada() {
+
 }
