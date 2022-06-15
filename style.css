@@ -59,6 +59,7 @@ img {
         width: 80%;
     }
     .caixa-jogo {
-        width: 50%;
+        width: 70%;
+        justify-content: center;
     }
 }
