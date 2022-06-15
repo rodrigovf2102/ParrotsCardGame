@@ -6,4 +6,8 @@ while(!qntdeCarta){
         qntdeCarta =0;
     }
 }
-console.log(qntdeCarta);
+
+const caixaJogo = document.querySelector(".caixa-jogo")
+for(let i=0;i<qntdeCarta;i++){
+    caixaJogo.innerHTML = caixaJogo.innerHTML+ `<div class='carta-jogo'><img src='images/front.png'></div>`;
+}
