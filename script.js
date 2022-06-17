@@ -2,8 +2,10 @@ let qntdeCarta = 0;
 let cartasJogo = [];
 let contador = 0;
 const caixaJogo = document.querySelector(".caixa-jogo");
+let segundos=0;
 
 gerarCartas();
+contadorDeTempo();
 
 function gerarCartas() {
     while (!qntdeCarta) {
@@ -29,7 +31,14 @@ function gerarCartas() {
     </div>`;
     }
 }
-
+function contadorDeTempo(){
+    
+    setInterval(relogio,1000);
+}
+function relogio(){
+    document.querySelector(".temporizador").innerHTML=`${segundos}`;
+    segundos++; 
+}
 function comparador() {
     return Math.random() - 0.5;
 }
@@ -86,22 +95,15 @@ function verificarCartasIguais() {
     }
     let acertos = document.querySelectorAll(".aparecerfinal").length;
     if (acertos == qntdeCarta) {
-        alert("Você ganhou em: " + contador + " jogadas!");
-
+        alert("Você ganhou em: " + contador + " jogadas e em: "+(segundos-1)+" segundos");
         let resposta = prompt("Jogar denovo?");
-        if (resposta === "Sim" || resposta === "sim") {
-            let cartas = document.querySelectorAll(".card");
-            let cartasVerso = document.querySelectorAll(".aparecerfinal");
-            let cartasFrente = document.querySelectorAll(".esconderfinal");
-            for (let i = 0; i < cartas.length; i++) {
-                cartas[i].classList.remove("card");
-                cartasVerso[i].classList.remove("aparecerfinal");
-                cartasFrente[i].classList.remove("esconderfinal");  
-            }
+        if (resposta.toLowerCase() === "sim" || resposta.toLowerCase() === "s"|| resposta.toLowerCase() === "y"|| resposta.toLowerCase() === "yes") {
+            document.querySelector(".caixa-jogo").innerHTML = "";
             contador = 0;
             qntdeCarta = 0;
             cartasJogo = [];
             gerarCartas();
+            segundos=0;
         }
     }
 }
