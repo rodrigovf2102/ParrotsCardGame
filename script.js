@@ -3,6 +3,7 @@ let cartasJogo = [];
 let contador = 0;
 const caixaJogo = document.querySelector(".caixa-jogo");
 let segundos=0;
+let stopTime=0;
 
 gerarCartas();
 contadorDeTempo();
@@ -36,8 +37,12 @@ function contadorDeTempo(){
     setInterval(relogio,1000);
 }
 function relogio(){
-    document.querySelector(".temporizador").innerHTML=`${segundos}`;
-    segundos++; 
+    if(stopTime==0){
+        document.querySelector(".temporizador").innerHTML=`${segundos}`;
+        segundos++; 
+    }
+    else{
+    }
 }
 function comparador() {
     return Math.random() - 0.5;
@@ -104,6 +109,9 @@ function verificarCartasIguais() {
             cartasJogo = [];
             gerarCartas();
             segundos=0;
+        }
+        else{
+            stopTime=1;
         }
     }
 }
