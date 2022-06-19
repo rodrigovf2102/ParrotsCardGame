@@ -26,7 +26,7 @@ function gerarCartas() {
 
     for (let i = 0; i < qntdeCarta; i++) {
         caixaJogo.innerHTML = caixaJogo.innerHTML +
-            `<div class='card' onclick="virarCarta(this)">
+    `<div class='card' onclick="virarCarta(this)">
         <img class="back-face aparecer" src='images/front.png'>
         <img class="front-face esconder" src='images/${cartasJogo[i]}.gif'>
     </div>`;
@@ -41,8 +41,6 @@ function relogio(){
     if(stopTime==0){
         document.querySelector(".temporizador").innerHTML=`${segundos}`;
         segundos++; 
-    }
-    else{
     }
 }
 
@@ -81,9 +79,7 @@ function verificarCartasIguais() {
             cartasViradasVerso[i].classList.remove("aparecer");
             cartasViradasVerso[i].classList.add("esconder");
             cartasViradasFrente[i].classList.remove("esconder");
-            cartasViradasFrente[i].classList.add("aparecer");
-            
-            
+            cartasViradasFrente[i].classList.add("aparecer");     
         }
         for (let i = 0; i < CartasClicaveis.length; i++) {
             CartasClicaveis[i].onclick = function onclick(event) { virarCarta(this) };
@@ -105,6 +101,7 @@ function verificarCartasIguais() {
     if (acertos == qntdeCarta) {
         alert("Você ganhou em: " + contador + " jogadas e em: "+(segundos-1)+" segundos");
         let resposta = prompt("Jogar denovo?");
+        if(!resposta){resposta="";}
         if (resposta.toLowerCase() === "sim" || resposta.toLowerCase() === "s"|| resposta.toLowerCase() === "y"|| resposta.toLowerCase() === "yes") {
             caixaJogo.innerHTML = "";
             contador = 0;
