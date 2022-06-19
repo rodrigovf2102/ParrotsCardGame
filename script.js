@@ -32,10 +32,11 @@ function gerarCartas() {
     </div>`;
     }
 }
-function contadorDeTempo(){
-    
+
+function contadorDeTempo(){ 
     setInterval(relogio,1000);
 }
+
 function relogio(){
     if(stopTime==0){
         document.querySelector(".temporizador").innerHTML=`${segundos}`;
@@ -44,6 +45,7 @@ function relogio(){
     else{
     }
 }
+
 function comparador() {
     return Math.random() - 0.5;
 }
@@ -51,15 +53,13 @@ function comparador() {
 function virarCarta(carta) {
     if (carta.querySelector(".front-face.aparecerfinal") == null) {
         contador++;
-
         carta.onclick = "";
-
         carta.querySelector(".back-face").classList.remove("aparecer");
         carta.querySelector(".back-face").classList.add("esconder");
         carta.querySelector(".front-face").classList.remove("esconder");
         carta.querySelector(".front-face").classList.add("aparecer");
-        console.log(contador);
-
+        carta.classList.add("virada");
+        
         if (contador % 2 === 0) {
             let cartasNaoClicaveis = document.querySelectorAll(".card")
             for (let i = 0; i < cartasNaoClicaveis.length; i++) {
@@ -77,10 +77,13 @@ function verificarCartasIguais() {
     if (cartasViradasVerso[0].getAttribute("src").toString() !== cartasViradasVerso[1].getAttribute("src").toString()) {
         let CartasClicaveis = document.querySelectorAll(".card");
         for (let i = 0; i < 2; i++) {
+            cartasViradasFrente[i].parentNode.classList.remove("virada");
             cartasViradasVerso[i].classList.remove("aparecer");
             cartasViradasVerso[i].classList.add("esconder");
             cartasViradasFrente[i].classList.remove("esconder");
             cartasViradasFrente[i].classList.add("aparecer");
+            
+            
         }
         for (let i = 0; i < CartasClicaveis.length; i++) {
             CartasClicaveis[i].onclick = function onclick(event) { virarCarta(this) };
@@ -103,7 +106,7 @@ function verificarCartasIguais() {
         alert("Você ganhou em: " + contador + " jogadas e em: "+(segundos-1)+" segundos");
         let resposta = prompt("Jogar denovo?");
         if (resposta.toLowerCase() === "sim" || resposta.toLowerCase() === "s"|| resposta.toLowerCase() === "y"|| resposta.toLowerCase() === "yes") {
-            document.querySelector(".caixa-jogo").innerHTML = "";
+            caixaJogo.innerHTML = "";
             contador = 0;
             qntdeCarta = 0;
             cartasJogo = [];
